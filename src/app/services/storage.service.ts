@@ -47,7 +47,7 @@ export class StorageService {
         this.openInBrowser(record.text);
         break;
       case 'location':
-        this.openInBrowser(record.text);
+        this.navCtrl.navigateForward(`/tabs/tab2/map/${record.text}`);
         break;
       default:
         break;
