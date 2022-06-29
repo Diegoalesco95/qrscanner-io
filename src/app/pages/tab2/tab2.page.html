@@ -1,6 +1,12 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
     <ion-title> Records </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="sendEmail()" color="primary">
+        <ion-icon slot="icon-only" name="send"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -10,4 +16,18 @@
       <ion-title size="large">Records</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-list>
+    <ion-item
+      detail
+      *ngFor="let record of storageService.savedRecords"
+      (click)="openRecord(record)"
+    >
+      <ion-icon slot="start" [name]="record.icon" color="primary"></ion-icon>
+      <ion-label>
+        <h2>{{record.text}}</h2>
+        <p>{{record.created | date:'medium'}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

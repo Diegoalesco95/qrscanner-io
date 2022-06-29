@@ -15,7 +15,6 @@ export class Record {
 
   private getType() {
     const initText = this.text.substring(0, 4);
-    console.log('TYPE', initText);
 
     switch (initText) {
       case 'http':
