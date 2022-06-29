@@ -3,6 +3,7 @@ import { NavController, Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { Record } from 'src/app/models/record.model';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+// import { File } from '@awesome-cordova-plugins/file/ngx';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,8 @@ export class StorageService {
     private storage: Storage,
     private navCtrl: NavController,
     private iab: InAppBrowser,
-    private platform: Platform
+    private platform: Platform,
+    private file: File
   ) {
     this.init();
   }
@@ -53,6 +55,48 @@ export class StorageService {
         break;
     }
   }
+
+  sendEmail() {
+    const valuesTemp = [];
+    const titles = 'Type, Format, Created at, Text\n';
+
+    valuesTemp.push(titles);
+    this.savedRecords.forEach((record) => {
+      valuesTemp.push(
+        `${record.type}, ${record.format}, ${
+          record.created
+        }, ${record.text.replace(',', ' ')}\n`
+      );
+    });
+
+    // this.buildCsv(valuesTemp.join(''));
+  }
+
+  // private buildCsv(content: string) {
+  //   this.file
+  //     .checkFile(this.file.dataDirectory, 'records.csv')
+  //     .then((success) => {
+  //       this.writeInFile(content);
+  //     })
+  //     .catch((err1) => {
+  //       this.file
+  //         .createFile(this.file.dataDirectory, 'records.csv', false)
+  //         .then((success) => {
+  //           this.writeInFile(content);
+  //         })
+  //         .catch((err2) => {
+  //           console.log('Error creating file');
+  //         });
+  //     });
+  // }
+
+  // private async writeInFile(content: string) {
+  //   await this.file.writeExistingFile(
+  //     this.file.dataDirectory,
+  //     'records.csv',
+  //     content
+  //   );
+  // }
 
   private openInBrowser(url: string) {
     if (this.platform.is('ios') || this.platform.is('android')) {

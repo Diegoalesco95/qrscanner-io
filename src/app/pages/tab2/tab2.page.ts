@@ -11,7 +11,7 @@ export class Tab2Page {
   constructor(public storageService: StorageService) {}
 
   sendEmail() {
-    console.log('sendEmail');
+    this.storageService.sendEmail();
   }
 
   openRecord(record: Record) {
